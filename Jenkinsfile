@@ -5,15 +5,17 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker-compose build'
+                    // Since Docker Swarm doesn't use `docker-compose build`, ensure the image is built
+                    sh 'docker build -t nginx_custom .'
                 }
             }
         }
 
-        stage('Deploy with Docker Compose') {
+        stage('Deploy on Swarm') {
             steps {
                 script {
-                    sh 'docker-compose up -d'
+                    // Use docker stack deploy to run the service in Swarm
+                    sh 'docker stack deploy --compose-file docker-compose.yml myapp-stack'
                 }
             }
         }

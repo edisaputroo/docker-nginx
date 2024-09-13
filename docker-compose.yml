@@ -2,10 +2,17 @@ version: '3.8'
 
 services:
   web:
-    build: .
+    image: nginx:latest
     ports:
       - "8093:80"
     deploy:
       mode: replicated
       replicas: 1
     restart: always
+    configs:
+      - source: my_index_html
+        target: /usr/share/nginx/html/index.html
+
+configs:
+  my_index_html:
+    file: ./index.html
