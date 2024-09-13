@@ -2,10 +2,11 @@ pipeline {
     agent { label 'agent1' }
 
     stages {
-        stage('Clean Up Old Docker Image') {
+        stage('Clean Up Old Docker Image and Stack') {
             steps {
                 script {
-                    // Attempt to remove the old Docker image
+                    // Attempt to remove the old Docker image and stack
+                    sh 'docker stack rm myapp-stack || true'
                     sh 'docker rmi -f nginx_custom || true'
                 }
             }
