@@ -2,10 +2,10 @@ pipeline {
     agent { label 'agent1' }
 
     stages {
-        stage('Clean Up Old Docker Image and Stack') {
+        stage('Clean Up Old Docker Stack') {
             steps {
                 script {
-                    // Attempt to remove the old Docker image and stack
+                    // Attempt to remove the old stack and images
                     sh 'docker stack rm myapp-stack || true'
                     sh 'docker rmi -f nginx_custom || true'
                 }
@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Deploy on Swarm') {
+        stage('Deploy on Docker Swarm') {
             steps {
                 script {
                     // Deploy the updated service in Docker Swarm

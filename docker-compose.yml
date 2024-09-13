@@ -8,12 +8,16 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-    restart: always
     configs:
       - source: my_index_html
         target: /usr/share/nginx/html/index.html
+    networks:
+      - my_network
 
 configs:
   my_index_html:
     file: ./index.html
-  
+
+networks:
+  my_network:
+    driver: overlay
