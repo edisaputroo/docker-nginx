@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    image: nginx:latest
+    image: nginx_custom:latest
     ports:
       - "8093:80"
     deploy:

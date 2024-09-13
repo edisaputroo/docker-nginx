@@ -1,14 +1,20 @@
-# Use the official NGINX image from Docker Hub
+# Use the latest NGINX image
 FROM nginx:latest
 
-# Create a directory for the website content
-RUN mkdir -p /usr/share/nginx/html
+# Set working directory
+WORKDIR /usr/share/nginx/html
 
-# Copy the custom index.html file into the NGINX default content directory
-COPY ./index.html /usr/share/nginx/html/index.html
+# Copy the script to the container
+COPY generate_index.sh /usr/share/nginx/html/
+
+# Make the script executable
+RUN chmod +x generate_index.sh
+
+# Run the script to generate index.html with system info
+RUN ./generate_index.sh
 
 # Expose port 8093
 EXPOSE 8093
 
-# Start NGINX when the container starts
+# Start NGINX
 CMD ["nginx", "-g", "daemon off;"]

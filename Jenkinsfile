@@ -15,7 +15,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the new Docker image
+                    // Build the new Docker image with system info
                     sh 'docker build -t nginx_custom .'
                 }
             }
