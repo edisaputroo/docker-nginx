@@ -16,3 +16,4 @@ services:
 configs:
   my_index_html:
     file: ./index.html
+  
