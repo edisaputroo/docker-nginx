@@ -2,10 +2,19 @@ pipeline {
     agent { label 'agent1' }
 
     stages {
+        stage('Clean Up Old Docker Image') {
+            steps {
+                script {
+                    // Attempt to remove the old Docker image
+                    sh 'docker rmi -f nginx_custom || true'
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Since Docker Swarm doesn't use `docker-compose build`, ensure the image is built
+                    // Build the new Docker image
                     sh 'docker build -t nginx_custom .'
                 }
             }
@@ -14,7 +23,7 @@ pipeline {
         stage('Deploy on Swarm') {
             steps {
                 script {
-                    // Use docker stack deploy to run the service in Swarm
+                    // Deploy the updated service in Docker Swarm
                     sh 'docker stack deploy --compose-file docker-compose.yml myapp-stack'
                 }
             }
