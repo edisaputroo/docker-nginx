@@ -4,7 +4,7 @@ services:
   web:
     image: nginx_custom:latest
     ports:
-      - "8093:80"
+      - "8094:80"
     deploy:
       mode: replicated
       replicas: 1

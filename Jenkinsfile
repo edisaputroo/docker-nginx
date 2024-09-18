@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'agent1' }
+    agent { label 'agent2' }
 
     stages {
         stage('Clean Up Old Docker Stack') {
